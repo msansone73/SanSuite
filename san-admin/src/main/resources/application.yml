@@ -1,11 +1,6 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
 spring:
   datasource:
-    password: senha
+    password: ${DATABASE_PASSWORD}
     url: jdbc:postgresql://localhost:5432/san-admin
     username: msansone
   jpa:
@@ -17,4 +12,5 @@ spring:
   security:
     user:
       name: admin
-      password: batata
+      password: ${SECURITY_PASSWORD}
+      
