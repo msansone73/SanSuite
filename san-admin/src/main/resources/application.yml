@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: san-admin
   datasource:
     password: ${DATABASE_PASSWORD}
     url: jdbc:postgresql://localhost:5432/san-admin
@@ -13,4 +15,8 @@ spring:
     user:
       name: admin
       password: ${SECURITY_PASSWORD}
-      
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
