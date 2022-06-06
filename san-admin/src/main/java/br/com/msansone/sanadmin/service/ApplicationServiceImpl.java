@@ -24,4 +24,24 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return applicationRepository.save(application);
 	}
 
+	@Override
+	public Application update(Application application) {
+		Application oldApp = applicationRepository.findById(application.getId()).orElseThrow();
+		oldApp.setName(application.getName());
+		oldApp.setDescription(application.getDescription());
+		return applicationRepository.save(oldApp);
+	}
+
+	@Override
+	public Application getById(Long id) {
+		return applicationRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public void del(Application app) {
+		applicationRepository.delete(app);		
+	}
+	
+	
+
 }

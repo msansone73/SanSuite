@@ -10,4 +10,10 @@ public interface ApplicationService {
 
 	Application insert(Application application);
 
+	Application update(Application application);
+
+	Application getById(Long id);
+
+	void del(Application app);
+
 }
