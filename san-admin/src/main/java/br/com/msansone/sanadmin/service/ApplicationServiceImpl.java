@@ -1,6 +1,7 @@
 package br.com.msansone.sanadmin.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public Application insert(Application application) {
+	public Application insert(Application application) throws Exception {
+		Optional<Application> mesmoNome = applicationRepository.findAllByName(application.getName());
+		if (mesmoNome.isPresent()) {
+			throw new Exception("Application "+ application.getName() +" exists.");
+		}  else {
 		return applicationRepository.save(application);
+		}
 	}
 
 	@Override
