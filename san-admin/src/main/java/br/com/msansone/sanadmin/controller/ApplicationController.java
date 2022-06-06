@@ -32,7 +32,12 @@ public class ApplicationController {
 	
 	@PostMapping
 	public ResponseEntity<Application> insert(@RequestBody Application application){
-		return ResponseEntity.ok(applicationService.insert(application));		
+		try {
+			return ResponseEntity.ok(applicationService.insert(application));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return ResponseEntity.badRequest().build();			
+		}		
 	}
 	
 	@PutMapping

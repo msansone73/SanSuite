@@ -8,7 +8,7 @@ public interface ApplicationService {
 
 	List<Application> getAll();
 
-	Application insert(Application application);
+	Application insert(Application application) throws Exception;
 
 	Application update(Application application);
 
