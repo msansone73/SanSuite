@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.msansone.sanadmin.exception.ApplicationNotFoundException;
 import br.com.msansone.sanadmin.model.Application;
+import br.com.msansone.sanadmin.model.rest.ResponseAbstract;
+import br.com.msansone.sanadmin.model.rest.ResponseErro;
+import br.com.msansone.sanadmin.model.rest.ResponseGeneric;
 import br.com.msansone.sanadmin.service.ApplicationService;
 import net.bytebuddy.implementation.bytecode.Throw;
 
@@ -31,12 +34,11 @@ public class ApplicationController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Application> insert(@RequestBody Application application){
+	public ResponseEntity<ResponseGeneric> insert(@RequestBody Application application){
 		try {
-			return ResponseEntity.ok(applicationService.insert(application));
+			return ResponseEntity.ok(new ResponseGeneric(applicationService.insert(application),null));
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return ResponseEntity.badRequest().build();			
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,new ResponseErro(e.getMessage())));
 		}		
 	}
 	
