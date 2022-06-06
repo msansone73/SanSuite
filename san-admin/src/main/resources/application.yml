@@ -11,10 +11,17 @@ spring:
       ddl-auto: update
     show-sql: true
 
+<<<<<<< HEAD
 #  security:
 #    user:
 #      name: admin
 #      password: ${SECURITY_PASSWORD}
+=======
+  security:
+    user:
+      name: admin
+      password: ${SECURITY_PASSWORD}
+>>>>>>> e030a4be26598829b1d7de59b3d9d71d776d2c94
 
 eureka:
   client:
