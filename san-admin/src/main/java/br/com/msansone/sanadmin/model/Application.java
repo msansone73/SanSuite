@@ -14,11 +14,11 @@ public class Application {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank(message = "Category is mandatory")
+	@NotBlank(message = "Name is mandatory")
 	@Size(max = 50)
 	private String name;
 	
-	@NotBlank(message = "Category is mandatory")
+	@NotBlank(message = "Description is mandatory")
 	@Size(max = 30)
 	private String description;
 
