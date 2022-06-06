@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.msansone.sanadmin.exception.ApplicationNotFoundException;
 import br.com.msansone.sanadmin.model.Application;
-import br.com.msansone.sanadmin.model.rest.ResponseAbstract;
 import br.com.msansone.sanadmin.model.rest.ResponseErro;
 import br.com.msansone.sanadmin.model.rest.ResponseGeneric;
 import br.com.msansone.sanadmin.service.ApplicationService;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @RestController
 @RequestMapping("/api/application")
