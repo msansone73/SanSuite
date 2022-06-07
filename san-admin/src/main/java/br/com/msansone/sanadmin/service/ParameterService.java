@@ -12,7 +12,7 @@ public interface ParameterService {
 
 	Parameter getById(Long id);
 
-	Parameter update(Parameter old);
+	Parameter update(Parameter old) throws Exception;
 
 	List<Parameter>  getByApplication(Long id);
 

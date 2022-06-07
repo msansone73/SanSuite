@@ -1,6 +1,7 @@
 package br.com.msansone.sanadmin.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,19 @@ public class ParameterServiceImpl implements ParameterService{
 	}
 
 	@Override
-	public Parameter update(Parameter old) {
+	public Parameter update(Parameter para) throws Exception {
+		Optional<Parameter> optOld = parameterRepository.findById(para.getId());
+		if (optOld.isEmpty()) {
+			throw new Exception("Parametro "+para.getId()+" inexistente!");
+		}
+		
+		Parameter old = optOld.get();
+		old.setCategory(para.getCategory());
+		old.setKey(para.getKey());
+		old.setValue(para.getValue());
+		old.setApplication(para.getApplication());
+		old.setActive(para.getActive());	
+		
 		return parameterRepository.save(old);
 	}
 

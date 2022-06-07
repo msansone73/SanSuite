@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.msansone.sanadmin.exception.ApplicationNotFoundException;
 import br.com.msansone.sanadmin.model.Application;
+import br.com.msansone.sanadmin.model.rest.ResponseGeneric;
 import br.com.msansone.sanadmin.service.ApplicationService;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @RestController
 @RequestMapping("/api/application")
@@ -31,18 +30,21 @@ public class ApplicationController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Application> insert(@RequestBody Application application){
+	public ResponseEntity<ResponseGeneric> insert(@RequestBody Application application){
 		try {
-			return ResponseEntity.ok(applicationService.insert(application));
+			return ResponseEntity.ok(new ResponseGeneric(applicationService.insert(application),null));
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return ResponseEntity.badRequest().build();			
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
 		}		
 	}
 	
 	@PutMapping
-	public ResponseEntity<Application> update(@RequestBody Application application){
-		return ResponseEntity.ok(applicationService.update(application));
+	public ResponseEntity<ResponseGeneric> update(@RequestBody Application application){
+		try {
+			return ResponseEntity.ok(new ResponseGeneric(applicationService.update(application),null));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
+		}
 	}
 	
 	@GetMapping("/{id}")
@@ -55,13 +57,18 @@ public class ApplicationController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Application> delById(@PathVariable Long id){
+	public ResponseEntity<ResponseGeneric> delById(@PathVariable Long id){
 		Application app = applicationService.getById(id);
 		if (app==null) {
 			return ResponseEntity.notFound().build();			
 		}
-		applicationService.del(app);
-		return ResponseEntity.ok(app);
+		try {
+			applicationService.del(app);
+			return ResponseEntity.ok(new ResponseGeneric(app, null));	
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
+		}
+		
 	}
 
 }
