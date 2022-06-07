@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.msansone.sanadmin.model.Parameter;
+import br.com.msansone.sanadmin.model.rest.ResponseGeneric;
 import br.com.msansone.sanadmin.service.ParameterService;
 
 @RestController
@@ -23,8 +24,12 @@ public class ParameterController {
 	ParameterService parameterService;
 	
 	@PostMapping
-	public ResponseEntity<Parameter> update(@RequestBody Parameter parameter){
-		return ResponseEntity.ok(parameterService.addParameter(parameter));
+	public ResponseEntity<ResponseGeneric> update(@RequestBody Parameter parameter){
+		try {
+			return ResponseEntity.ok(new ResponseGeneric(parameterService.addParameter(parameter), null));	
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
+		}			
 	}
 
 	@GetMapping
@@ -42,17 +47,12 @@ public class ParameterController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Parameter> updateParameter(@RequestBody Parameter para){
-		Parameter old= parameterService.getById(para.getId());
-		if (old==null) {
-			return ResponseEntity.notFound().build();
+	public ResponseEntity<ResponseGeneric> updateParameter(@RequestBody Parameter para){
+		try {
+			return ResponseEntity.ok(new ResponseGeneric(parameterService.update(para), null));	
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
 		}
-		old.setCategory(para.getCategory());
-		old.setKey(para.getKey());
-		old.setValue(para.getValue());
-		old.setApplication(para.getApplication());
-		old.setActive(para.getActive());
-		return ResponseEntity.ok(parameterService.update(old));
 	}
 	
 	@GetMapping("/application/{id}")
