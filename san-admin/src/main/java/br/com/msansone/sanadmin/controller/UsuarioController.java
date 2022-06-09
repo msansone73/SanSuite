@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.msansone.sanadmin.model.Usuario;
-import br.com.msansone.sanadmin.model.rest.LoginRquest;
+import br.com.msansone.sanadmin.model.rest.LoginRequest;
 import br.com.msansone.sanadmin.model.rest.ResponseGeneric;
 import br.com.msansone.sanadmin.service.UsuarioService;
 
@@ -65,11 +65,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<ResponseGeneric> login(@RequestBody LoginRquest loginRequest){
+	public ResponseEntity<ResponseGeneric> login(@RequestBody LoginRequest loginRequest){
 		try {
 			return ResponseEntity.ok(
 					new ResponseGeneric(
 							usuarioService.login(
+									loginRequest.getApplicationId(),
 									loginRequest.getEmail(), 
 									loginRequest.getPassword()
 									),

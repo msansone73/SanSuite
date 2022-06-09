@@ -1,16 +1,24 @@
 package br.com.msansone.sanadmin.model.rest;
 
-public class LoginRquest {
+public class LoginRequest {
 	
-	public LoginRquest(String email, String password) {
+	public LoginRequest(Long applicationId, String email, String password) {
 		super();
+		this.applicationId = applicationId;
 		this.email = email;
 		this.password = password;
 	}
 	
+	private Long applicationId;
 	private String email;
 	private String password;
 	
+	public Long getApplicationId() {
+		return applicationId;
+	}
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
+	}
 	public String getEmail() {
 		return email;
 	}

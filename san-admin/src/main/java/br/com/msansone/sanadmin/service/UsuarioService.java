@@ -13,7 +13,7 @@ public interface UsuarioService {
 
 	List<Usuario> getAll();
 
-	Usuario login(String email, String password);
+	Usuario login(Long id, String email, String password);
 
 	Usuario inserir(Usuario usuario);
 

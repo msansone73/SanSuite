@@ -45,8 +45,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario login(String email, String password) {
-		return repository.findAllByEmailAndPassword(
+	public Usuario login(Long id, String email, String password) {
+		return repository.findAllByApplicationIdAndEmailAndPassword(id,
 				email, 
 				password)
 				.orElseThrow(() -> new InvalidAuthenticationException("Login Invalid!"));
