@@ -26,7 +26,9 @@ public class ParameterController {
 	@PostMapping
 	public ResponseEntity<ResponseGeneric> update(@RequestBody Parameter parameter){
 		try {
-			return ResponseEntity.ok(new ResponseGeneric(parameterService.addParameter(parameter), null));	
+			return ResponseEntity.ok(
+					new ResponseGeneric(parameterService.addParameter(parameter), null)
+					);	
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(new ResponseGeneric(null,e));
 		}			
