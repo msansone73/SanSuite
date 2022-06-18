@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -46,10 +47,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario login(Long id, String email, String password) {
-		return repository.findAllByApplicationIdAndEmailAndPassword(id,
-				email, 
-				password)
+		Usuario usuario =  repository.findAllByApplicationIdAndEmail(id,
+				email)
 				.orElseThrow(() -> new InvalidAuthenticationException("Login Invalid!"));
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if (encoder.matches(password, usuario.getPassword())) {
+			return usuario;
+		} else {
+			throw new InvalidAuthenticationException("Login Invalid!");
+		}
 		
 	}
 

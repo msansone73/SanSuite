@@ -1,6 +1,7 @@
 package br.com.msansone.sanadmin.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,10 +32,11 @@ public class Usuario{
 	@NotBlank(message = "Email is mandatory")
 	@Size(max = 50)
 	@Email
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank(message = "Password is mandatory")
-	@Size(max = 50)
+	@Size(max = 200)
 	private String password;
 	
 	@NotNull(message = "Active is mandatory")
