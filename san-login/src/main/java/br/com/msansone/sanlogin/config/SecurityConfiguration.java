@@ -1,4 +1,5 @@
-package br.com.msansone.sanadmin.config;
+package br.com.msansone.sanlogin.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
